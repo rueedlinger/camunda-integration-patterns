@@ -1,4 +1,4 @@
-package org.camunda.bpm.spring.boot.example.simple;
+package ch.yax.bpmn;
 
 import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.spring.boot.starter.annotation.EnableProcessApplication;
