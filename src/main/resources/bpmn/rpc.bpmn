@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_10ano73" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.12.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="process-rpc" name="RPC Integration" isExecutable="true">
+    <bpmn:startEvent id="start">
+      <bpmn:outgoing>Flow_1w6ouvt</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="end">
+      <bpmn:incoming>Flow_13c00rc</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_13c00rc" sourceRef="inspect" targetRef="end" />
+    <bpmn:userTask id="inspect" name="inspect response">
+      <bpmn:incoming>Flow_037z81z</bpmn:incoming>
+      <bpmn:outgoing>Flow_13c00rc</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_037z81z" sourceRef="rest" targetRef="inspect" />
+    <bpmn:serviceTask id="rest" name="call rest endpoint" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:delegateExpression="${restDelegate}">
+      <bpmn:incoming>Flow_1a5j6kk</bpmn:incoming>
+      <bpmn:outgoing>Flow_037z81z</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:task id="validate" name="validate input variables">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${validationExecutionListener}" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1w6ouvt</bpmn:incoming>
+      <bpmn:outgoing>Flow_1a5j6kk</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:sequenceFlow id="Flow_1w6ouvt" sourceRef="start" targetRef="validate" />
+    <bpmn:sequenceFlow id="Flow_1a5j6kk" sourceRef="validate" targetRef="rest" />
+    <bpmn:textAnnotation id="TextAnnotation_19oa2yo">
+      <bpmn:text>RPC style integration with a REST endpoint</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1gh7j7l" sourceRef="rest" targetRef="TextAnnotation_19oa2yo" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="process-rpc">
+      <bpmndi:BPMNShape id="TextAnnotation_19oa2yo_di" bpmnElement="TextAnnotation_19oa2yo">
+        <dc:Bounds x="430" y="80" width="100" height="68" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_13c00rc_di" bpmnElement="Flow_13c00rc">
+        <di:waypoint x="620" y="227" />
+        <di:waypoint x="692" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_037z81z_di" bpmnElement="Flow_037z81z">
+        <di:waypoint x="470" y="227" />
+        <di:waypoint x="520" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w6ouvt_di" bpmnElement="Flow_1w6ouvt">
+        <di:waypoint x="188" y="227" />
+        <di:waypoint x="230" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1a5j6kk_di" bpmnElement="Flow_1a5j6kk">
+        <di:waypoint x="330" y="227" />
+        <di:waypoint x="370" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1l5el1e_di" bpmnElement="inspect">
+        <dc:Bounds x="520" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1s3ntz6_di" bpmnElement="end">
+        <dc:Bounds x="692" y="209" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="start">
+        <dc:Bounds x="152" y="209" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="611" y="142" width="22" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_07txahz_di" bpmnElement="validate">
+        <dc:Bounds x="230" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1k9k7vm_di" bpmnElement="rest">
+        <dc:Bounds x="370" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1gh7j7l_di" bpmnElement="Association_1gh7j7l">
+        <di:waypoint x="438" y="187" />
+        <di:waypoint x="456" y="148" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
