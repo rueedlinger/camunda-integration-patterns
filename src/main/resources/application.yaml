@@ -11,3 +11,5 @@ spring:
     url: jdbc:h2:mem:example-simple;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
 
 
+rest:
+  endpoint: "http://jsonplaceholder.typicode.com/posts"

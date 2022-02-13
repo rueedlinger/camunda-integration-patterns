@@ -7,16 +7,17 @@ POST http://localhost:8080/engine-rest/process-definition/key/process-rpc/start
 ```json
 {
   "variables": {
-    "aVariable": {
-      "value": "aStringValue",
+    "userId": {
+      "value": "102",
+      "type": "Long"
+    },
+    "body": {
+      "value": "the body",
       "type": "String"
     },
-    "anotherVariable": {
-      "value": true,
-      "type": "Boolean",
-      "valueInfo": {
-        "transient": true
-      }
+    "title": {
+      "value": "the title",
+      "type": "String"
     }
   },
   "businessKey": "myBusinessKey",
